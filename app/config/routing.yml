@@ -1,3 +1,7 @@
+video:
+    resource: "@VideoBundle/Resources/config/routing.yml"
+    prefix:   /
+
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
