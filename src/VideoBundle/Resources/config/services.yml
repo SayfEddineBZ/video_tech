@@ -1,4 +1,6 @@
 services:
-#    video.example:
-#        class: VideoBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+     video.twig.app_extension:
+                class: VideoBundle\Twig\AppExtension
+                arguments: ['@doctrine']
+                tags:
+                    -  { name: twig.extension }

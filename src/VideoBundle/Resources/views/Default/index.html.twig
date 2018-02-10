@@ -1,1 +1,8 @@
-Hello World!
+{% extends 'base.html.twig' %}
+
+{% block title %}My cool blog posts{% endblock %}
+
+{% block content %}
+   {{ parent() }}
+    <h1>Bienvenue sur Vidéothéque</h1>
+{% endblock %}

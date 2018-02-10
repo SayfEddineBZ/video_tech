@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des films{% endblock %}
+{% block titleC %}Liste des films{% endblock %}
+{% block content %}
+    {{ parent() }}
+{% endblock %}
+    {% block panel %}
+        {% if app.session is not null and app.session.started %}
+            {% for label, messages in app.session.flashbag.all %}
+                {% for message in messages %}
+                    <div class="alert alert-success" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+
+        <div class="count">
+            <h3>Nombre des films: {{ pagination.getTotalItemCount }}</h3>
+        </div>
+        <table class="table">
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
+                <th{% if pagination.isSorted('a.titre') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Titre', 'a.titre') }}</th>
+                <th{% if pagination.isSorted('a.description') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Description', 'a.description') }}</th>
+                <th{% if pagination.isSorted('a.photo') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Photo', 'a.photo') }}</th>
+                <th{% if pagination.isSorted('a.datecreat') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Date de création', 'a.datecreat') }}</th>
+                <th></th>
+            </tr>
+
+            {# table body #}
+            {% for film in pagination %}
+                <tr {% if loop.index is odd %}class="color"{% endif %}>
+                    <td>{{ film.id }}</td>
+                    <td>{{ film.titre }}</td>
+                    <td>{{ film.description }}</td>
+                    <td><img src="{{ asset('uploads/photos/')~film.photo }}" class="photo img-responsive"
+                             alt="Responsive image"></td>
+                    <td>{{ film.datecreat | date('d/m/y') }}</td>
+                    <td>
+                        <a href="{{ path('film_show',{'id':film.id, 'category':film.categorie.libelle,'film': film.titre}) }}"><span class="glyphicon glyphicon-eye-open
+"></span></a>
+                        <a href="{{ path('film_edit',{'id':film.id}) }}"><span
+                                    class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="{{ path('film_delete',{'id':film.id}) }}"><span class="glyphicon glyphicon-remove
+"></span></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        {# display navigation #}
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+
+    {% endblock %}
+
+{% block scripts %}
+    <script>
+        $('#bs-navbar-collapse-1 .nav li').each(function (index) {
+            $(this).removeClass('active')
+        })
+        $('#bs-navbar-collapse-1 .nav li').eq(2).addClass('active');
+    </script>
+{% endblock %}
+
+

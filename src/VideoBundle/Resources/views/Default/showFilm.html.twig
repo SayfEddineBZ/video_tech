@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Film: {{ film.titre }}{% endblock %}
+{% block titleC %}Film: {{ film.titre }}
+{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+{% endblock %}
+    {% block panel %}
+        <a href="{{ path('film_edit',{'id':film.id}) }}"><span
+                    class="glyphicon glyphicon-pencil"></span>Modifier</a>
+        {% if app.session is not null and app.session.started %}
+            {% for label, messages in app.session.flashbag.all %}
+                {% for message in messages %}
+                    <div class="alert alert-success" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+        <table class="table">
+            <tr>
+                <th>id</th>
+                <td>{{ film.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ film.titre }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ film.description }}</td>
+            </tr>
+            <tr>
+                <th>Date de création</th>
+                <td>{{ film.datecreat| date('d/m/y') }}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td><img src="{{ asset('uploads/photos/')~film.photo }}" class="photo img-responsive"
+                         alt="Responsive image"></td>
+            </tr>
+        </table>
+
+    {% endblock %}
+
+{% block scripts %}
+    <script>
+        $('#bs-navbar-collapse-1 .nav li').each(function (index) {
+            $(this).removeClass('active')
+        })
+        $('#bs-navbar-collapse-1 .nav li').eq(1).addClass('active');
+    </script>
+{% endblock %}
+
+

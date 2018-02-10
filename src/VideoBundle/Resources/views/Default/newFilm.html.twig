@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout d'un film{% endblock %}
+{% block titleC %}Ajout d'un film{% endblock %}
+{% block content %}
+    {{ parent() }}
+    {% block panel %}
+        {% if app.session is not null and app.session.started %}
+            {% for label, messages in app.session.flashbag.all %}
+                {% for message in messages %}
+                    <div class="alert alert-success" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    {% endblock %}
+{% endblock %}
+{% block scripts %}
+    <script>
+        $('#bs-navbar-collapse-1 .nav li').each(function (index) {
+            $(this).removeClass('active')
+        })
+        $('#bs-navbar-collapse-1 .nav li').eq(1).addClass('active');
+    </script>
+{% endblock %}
+
+

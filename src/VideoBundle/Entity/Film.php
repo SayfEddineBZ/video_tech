@@ -43,6 +43,13 @@ class Film
     private $photo;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="datecreat", type="date", nullable=false)
+     */
+    private $datecreat;
+
+    /**
      * @var \Categorie
      *
      * @ORM\ManyToOne(targetEntity="Categorie")
@@ -134,6 +141,30 @@ class Film
     public function getPhoto()
     {
         return $this->photo;
+    }
+
+    /**
+     * Set datecreat
+     *
+     * @param \DateTime $datecreat
+     *
+     * @return Film
+     */
+    public function setDatecreat($datecreat)
+    {
+        $this->datecreat = $datecreat;
+
+        return $this;
+    }
+
+    /**
+     * Get datecreat
+     *
+     * @return \DateTime
+     */
+    public function getDatecreat()
+    {
+        return $this->datecreat;
     }
 
     /**

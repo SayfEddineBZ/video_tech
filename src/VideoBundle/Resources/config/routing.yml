@@ -1,3 +1,27 @@
 video_homepage:
     path:     /
     defaults: { _controller: VideoBundle:Default:index }
+
+film_add:
+    path:     /film/add
+    defaults: { _controller: VideoBundle:Default:newFilm }
+
+film_edit:
+    path:     /film/edit/{id}
+    defaults: { _controller: VideoBundle:Default:editFilm }
+
+film_delete:
+    path:     /film/delete/{id}
+    defaults: { _controller: VideoBundle:Default:deleteFilm }
+
+film_list:
+    path:     /film/list/{category}
+    defaults: { _controller: VideoBundle:Default:listFilm }
+
+film_show:
+    path:     /{category}/{film}-{id}.html
+    defaults: { _controller: VideoBundle:Default:showFilm }
+
+film_search:
+    path:     /film/search
+    defaults: { _controller: VideoBundle:Default:searchFilm }
